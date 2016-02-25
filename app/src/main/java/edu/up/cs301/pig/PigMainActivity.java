@@ -1,10 +1,14 @@
 package edu.up.cs301.pig;
 
+import android.widget.ImageButton;
+import android.widget.TextView;
+
 import java.util.ArrayList;
 
 import edu.up.cs301.game.GameMainActivity;
 import edu.up.cs301.game.GamePlayer;
 import edu.up.cs301.game.LocalGame;
+import edu.up.cs301.game.R;
 import edu.up.cs301.game.config.GameConfig;
 import edu.up.cs301.game.config.GamePlayerType;
 
@@ -18,7 +22,6 @@ public class PigMainActivity extends GameMainActivity {
 
     // the port number that this game will use when playing over the network
     private static final int PORT_NUMBER = 2278;
-
     /**
      * Create the default configuration for this game:
      * - one human player vs. one computer player
@@ -33,6 +36,7 @@ public class PigMainActivity extends GameMainActivity {
         // Define the allowed player types
         ArrayList<GamePlayerType> playerTypes = new ArrayList<GamePlayerType>();
 
+
         // Pig has two player types:  human and computer
         playerTypes.add(new GamePlayerType("Local Human Player") {
             public GamePlayer createPlayer(String name) {
@@ -41,6 +45,10 @@ public class PigMainActivity extends GameMainActivity {
         playerTypes.add(new GamePlayerType("Computer Player") {
             public GamePlayer createPlayer(String name) {
                 return new PigComputerPlayer(name);
+            }});
+        playerTypes.add(new GamePlayerType("Smart Computer Player") {
+            public GamePlayer createPlayer(String name) {
+                return new PigSmartComputerPlayer(name);
             }});
 
         // Create a game configuration class for Pig:

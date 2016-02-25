@@ -13,14 +13,14 @@ import edu.up.cs301.game.util.Tickable;
  * @author Andrew M. Nuxoll
  * @version August 2015
  */
-public class PigComputerPlayer extends GameComputerPlayer {
+public class PigSmartComputerPlayer extends GameComputerPlayer {
     private PigRollAction myRoll;
     private  PigHoldAction myHold;
 
     /**
      * ctor does nothing extra
      */
-    public PigComputerPlayer(String name) {
+    public PigSmartComputerPlayer(String name) {
         super(name);
         myRoll = new PigRollAction(this);
         myHold = new PigHoldAction(this);
@@ -37,12 +37,18 @@ public class PigComputerPlayer extends GameComputerPlayer {
         // TODO  You will implement this method
         if (info instanceof PigGameState){
             info = (PigGameState) info;
+
             if (((PigGameState) info).getPlayerID() == this.playerNum){
+                sleep(1000);
                 Random rand = new Random();
-                if(rand.nextBoolean()){
+                if(((PigGameState) info).getPlayer1_score() <= 40 && ((PigGameState) info).getPlayer0_score() >= ((PigGameState) info).getPlayer1_score()){
+                    for(int i=0; i<3; i++){
+                        this.game.sendAction(myRoll);
+                    }
                     this.game.sendAction(myHold);
                 } else {
                     this.game.sendAction(myRoll);
+                    this.game.sendAction(myHold);
                 }
             }
         } else {
